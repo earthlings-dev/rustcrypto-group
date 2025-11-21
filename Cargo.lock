@@ -13,18 +13,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "group"
-version = "0.14.0-pre.0"
-dependencies = [
- "ff",
- "memuse",
- "rand",
- "rand_core",
- "rand_xorshift",
- "subtle",
-]
-
-[[package]]
 name = "memuse"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -71,6 +59,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "513962919efc330f829edb2535844d1b912b0fbe2ca165d613e4e8788bb05a5a"
 dependencies = [
  "rand_core",
+]
+
+[[package]]
+name = "rustcrypto-group"
+version = "0.14.0-pre"
+dependencies = [
+ "ff",
+ "memuse",
+ "rand",
+ "rand_core",
+ "rand_xorshift",
+ "subtle",
 ]
 
 [[package]]

@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
     steps:
       - uses: actions/checkout@v4
       - name: Run tests
@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -66,7 +66,7 @@ jobs:
       - name: Add group as a dependency of the synthetic crate
         working-directory: ./ci-build
         # run: cargo add --no-default-features --path ../crate_root
-        run: sed -i 's;\[dependencies\];\[dependencies\]\ngroup = { path = "../crate_root", default-features = false };g' ./Cargo.toml
+        run: sed -i 's;\[dependencies\];\[dependencies\]\nrustcrypto-group = { path = "../crate_root", default-features = false };g' ./Cargo.toml
       - name: Add target
         working-directory: ./ci-build
         run: rustup target add ${{ matrix.target }}

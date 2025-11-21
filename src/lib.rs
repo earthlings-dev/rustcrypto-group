@@ -141,7 +141,7 @@ pub trait GroupEncoding: Sized {
     /// The `Default` implementation is not required to return a valid point encoding. The
     /// bound is present to enable encodings to be constructed generically:
     /// ```
-    /// # use group::GroupEncoding;
+    /// # use rustcrypto_group::GroupEncoding;
     /// # use subtle::CtOption;
     /// # struct G;
     /// # impl GroupEncoding for G {

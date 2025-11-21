@@ -1,6 +1,8 @@
-# group [![Crates.io](https://img.shields.io/crates/v/group.svg)](https://crates.io/crates/group) #
+# [RustCrypto]: group [![Crates.io](https://img.shields.io/crates/v/group.svg)](https://crates.io/crates/group) #
 
 `group` is a crate for working with groups over elliptic curves.
+
+This is a fork of: https://github.com/zkcrypto/group
 
 ## RFC process
 
@@ -32,3 +34,5 @@ Unless you explicitly state otherwise, any contribution intentionally
 submitted for inclusion in the work by you, as defined in the Apache-2.0
 license, shall be dual licensed as above, without any additional terms or
 conditions.
+
+[RustCrypto]: https://github.com/rustcrypto/
