@@ -1,8 +1,8 @@
 use alloc::vec::Vec;
+use chacha20::ChaCha8Rng;
 use core::ops::{Mul, Neg};
 use ff::{Field, PrimeField};
 use rand::SeedableRng;
-use rand_xorshift::XorShiftRng;
 
 use crate::{
     prime::{PrimeCurve, PrimeCurveAffine},
@@ -10,11 +10,13 @@ use crate::{
     GroupEncoding, UncompressedEncoding,
 };
 
+const RNG_SEED: [u8; 32] = [
+    0x1f, 0x64, 0x25, 0xd1, 0x6c, 0xb5, 0xdf, 0x2, 0x6a, 0x72, 0xf6, 0x90, 0xa, 0x7a, 0xe1, 0x38,
+    0x22, 0xb7, 0xa8, 0x11, 0xb, 0xcf, 0xf4, 0x74, 0x25, 0xd, 0x63, 0x24, 0x17, 0x96, 0xc8, 0x58,
+];
+
 pub fn curve_tests<G: PrimeCurve>() {
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     // Negation edge case with identity.
     {
@@ -72,10 +74,7 @@ pub fn curve_tests<G: PrimeCurve>() {
 pub fn random_wnaf_tests<G: WnafGroup>() {
     use crate::wnaf::*;
 
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     {
         let mut table = vec![];
@@ -189,10 +188,7 @@ pub fn random_wnaf_tests<G: WnafGroup>() {
 }
 
 fn random_negation_tests<G: PrimeCurve>() {
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     for _ in 0..1000 {
         let r = G::random(&mut rng);
@@ -219,10 +215,7 @@ fn random_negation_tests<G: PrimeCurve>() {
 }
 
 fn random_doubling_tests<G: PrimeCurve>() {
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     for _ in 0..1000 {
         let mut a = G::random(&mut rng);
@@ -247,10 +240,7 @@ fn random_doubling_tests<G: PrimeCurve>() {
 }
 
 fn random_multiplication_tests<G: PrimeCurve>() {
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     for _ in 0..1000 {
         let mut a = G::random(&mut rng);
@@ -282,10 +272,7 @@ fn random_multiplication_tests<G: PrimeCurve>() {
 }
 
 fn random_addition_tests<G: PrimeCurve>() {
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     for _ in 0..1000 {
         let a = G::random(&mut rng);
@@ -362,10 +349,7 @@ fn random_addition_tests<G: PrimeCurve>() {
 }
 
 fn random_transformation_tests<G: PrimeCurve>() {
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     for _ in 0..1000 {
         let g = G::random(&mut rng);
@@ -399,10 +383,7 @@ fn random_transformation_tests<G: PrimeCurve>() {
 }
 
 fn random_compressed_encoding_tests<G: PrimeCurve>() {
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     assert_eq!(
         G::Affine::from_bytes(&G::Affine::identity().to_bytes()).unwrap(),
@@ -428,10 +409,7 @@ pub fn random_uncompressed_encoding_tests<G: PrimeCurve>()
 where
     <G as PrimeCurve>::Affine: UncompressedEncoding,
 {
-    let mut rng = XorShiftRng::from_seed([
-        0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-        0xe5,
-    ]);
+    let mut rng = ChaCha8Rng::from_seed(RNG_SEED);
 
     assert_eq!(
         G::Affine::from_uncompressed(&G::Affine::identity().to_uncompressed()).unwrap(),
