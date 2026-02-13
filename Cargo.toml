@@ -33,9 +33,9 @@ tests = ["alloc", "chacha20", "rand"] # "rand_xorshift"]
 wnaf-memuse = ["alloc", "memuse"]
 
 [patch.crates-io]
-rustcrypto-ff = { path = "../rustcrypto-ff" }
-rand = { path = "../rand" }
-rand_core = { path = "../rand_core" }
+rustcrypto-ff = { git = "https://github.com/earthlings-dev/rustcrypto-ff.git" }
+rand = { git = "https://github.com/earthlings-dev/rand.git" }
+rand_core = { git = "https://github.com/earthlings-dev/rand_core.git" }
 
 [badges]
 maintenance = { status = "actively-developed" }
