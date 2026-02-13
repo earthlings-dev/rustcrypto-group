@@ -1,5 +1,4 @@
 use alloc::vec::Vec;
-use core::iter;
 use core::marker::PhantomData;
 use core::ops::Mul;
 
@@ -140,7 +139,7 @@ pub(crate) fn wnaf_form<S: AsRef<[u8]>>(wnaf: &mut Vec<i64>, c: S, window: usize
                 carry = 1;
                 (window_val as i64).wrapping_sub(width as i64)
             });
-            wnaf.extend(iter::repeat(0).take(window - 1));
+            wnaf.extend(core::iter::repeat_n(0, window - 1));
             pos += window;
         }
     }
@@ -340,7 +339,7 @@ impl<'a, G: Group> Wnaf<usize, &'a [G], &'a mut Vec<i64>> {
 }
 
 #[cfg(feature = "wnaf-memuse")]
-impl<'a, G: Group> memuse::DynamicUsage for Wnaf<usize, &'a [G], Vec<i64>> {
+impl<G: Group> memuse::DynamicUsage for Wnaf<usize, &[G], Vec<i64>> {
     fn dynamic_usage(&self) -> usize {
         // The heap memory for the window table is counted in the parent `Wnaf`.
         self.scalar.dynamic_usage()
@@ -365,7 +364,7 @@ impl<'a, G: Group> Wnaf<usize, &'a mut Vec<G>, &'a [i64]> {
 }
 
 #[cfg(feature = "wnaf-memuse")]
-impl<'a, G: Group + memuse::DynamicUsage> memuse::DynamicUsage for Wnaf<usize, Vec<G>, &'a [i64]> {
+impl<G: Group + memuse::DynamicUsage> memuse::DynamicUsage for Wnaf<usize, Vec<G>, &[i64]> {
     fn dynamic_usage(&self) -> usize {
         // The heap memory for the scalar representation is counted in the parent `Wnaf`.
         self.base.dynamic_usage()
@@ -432,7 +431,7 @@ impl<F: PrimeField, const WINDOW_SIZE: usize> WnafScalar<F, WINDOW_SIZE> {
 
         WnafScalar {
             wnaf,
-            field: PhantomData::default(),
+            field: PhantomData,
         }
     }
 }

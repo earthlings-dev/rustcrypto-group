@@ -3,7 +3,7 @@ use core::ops::{Mul, Neg};
 use ff::PrimeField;
 use subtle::{Choice, CtOption};
 
-use crate::{prime::PrimeGroup, Curve, Group, GroupEncoding, GroupOps, GroupOpsOwned};
+use crate::{Curve, Group, GroupEncoding, GroupOps, GroupOpsOwned, prime::PrimeGroup};
 
 /// This trait represents an element of a cryptographic group with a large prime-order
 /// subgroup and a comparatively-small cofactor.
